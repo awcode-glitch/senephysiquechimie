@@ -1,0 +1,6 @@
+{
+  "name": "Senephysiquechimie",
+  "description": "Plateforme d'apprentissage moderne pour les élèves du collège à l'université, contenant des cours complets, fascicules, annales et corrections.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
