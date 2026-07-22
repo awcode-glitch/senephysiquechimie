@@ -16,7 +16,6 @@ import {
   Sparkles, 
   Phone, 
   Mail,
-  Award,
   RefreshCw,
   ArrowLeft, 
   Tv, 
@@ -447,10 +446,7 @@ export default function App() {
 
             {/* Column 1: Teacher Bio & Logo */}
             <div className="md:col-span-1.5 flex flex-col space-y-2.5">
-              <div className="flex items-center space-x-3 select-none">
-                <div className="p-2 rounded-lg bg-blue-900 border border-blue-800/50">
-                  <Award className="h-5 w-5 text-blue-300" />
-                </div>
+              <div className="flex items-center select-none">
                 <span className="text-base font-bold text-white tracking-tight">
                   SENEPHYSIQUECHIMIE
                 </span>

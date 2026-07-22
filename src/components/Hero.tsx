@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Sparkles, GraduationCap, ChevronRight } from 'lucide-react';
+import { Search, Sparkles, ChevronRight } from 'lucide-react';
 import HeroSlideshow from './HeroSlideshow';
 import teacherPhoto from '../assets/teacher/mr-sene.png';
 
@@ -130,8 +130,7 @@ export default function Hero({
             </div>
 
             <div className="flex-1 text-center md:text-left">
-              <h3 className="text-lg font-bold text-slate-900 flex items-center justify-center md:justify-start gap-1.5">
-                <GraduationCap className="h-5 w-5 text-[#0056D2]" />
+              <h3 className="text-lg font-bold text-slate-900 text-center md:text-left">
                 Mot de bienvenue de votre enseignant
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed italic">
