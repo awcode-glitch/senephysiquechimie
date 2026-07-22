@@ -22,28 +22,13 @@ const LEVELS: { id: string; label: string; isDropdown: boolean }[] = [
   { id: 'BAC', label: 'BAC', isDropdown: false }
 ];
 
-// 3ème/4ème aren't split by matière (Physique/Chimie) — just TD + Évaluations
-const SIMPLE_QUICK_LINK_LEVELS = ['3eme', '4eme'];
-// Only these levels get a "Cours" quick link at the top for now
-const LEVELS_WITH_COURS_LINK = ['TS', '1S', '2S'];
-
-const getQuickLinks = (levelId: string, label: string) => {
-  if (SIMPLE_QUICK_LINK_LEVELS.includes(levelId)) {
-    return [
-      { title: `Cours ${label}`, subject: 'All' as const, docType: 'Cours' as const },
-      { title: `TD ${label}`, subject: 'All' as const, docType: 'TD' as const },
-      { title: `Évaluations ${label}`, subject: 'All' as const, docType: 'Évaluation' as const }
-    ];
-  }
-  return [
-    ...(LEVELS_WITH_COURS_LINK.includes(levelId)
-      ? [{ title: `Cours ${label}`, subject: 'All' as const, docType: 'Cours' as const }]
-      : []),
-    { title: `TD Physique ${label}`, subject: 'Physique' as const, docType: 'TD' as const },
-    { title: `TD Chimie ${label}`, subject: 'Chimie' as const, docType: 'TD' as const },
-    { title: `Évaluations ${label}`, subject: 'All' as const, docType: 'Évaluation' as const }
-  ];
-};
+// Matière (Physique/Chimie) is chosen via the filter tabs on the page itself,
+// not split across separate quick links — same 3 links for every level.
+const getQuickLinks = (label: string) => [
+  { title: `Cours ${label}`, subject: 'All' as const, docType: 'Cours' as const },
+  { title: `TD ${label}`, subject: 'All' as const, docType: 'TD' as const },
+  { title: `Évaluations ${label}`, subject: 'All' as const, docType: 'Évaluation' as const }
+];
 
 const menuItems = [
   { id: 'Accueil', label: 'Accueil', isDropdown: false },
@@ -139,7 +124,7 @@ export default function Navbar({
               const isLevelActive = activeLevel === item.id;
 
               if (item.isDropdown) {
-                const quickLinks = getQuickLinks(item.id, item.label);
+                const quickLinks = getQuickLinks(item.label);
                 return (
                   <div
                     key={item.id}
@@ -243,7 +228,7 @@ export default function Navbar({
 
             if (item.isDropdown) {
               const isExpanded = expandedMobileSection === item.id;
-              const quickLinks = getQuickLinks(item.id, item.label);
+              const quickLinks = getQuickLinks(item.label);
               return (
                 <div key={item.id} className="flex flex-col space-y-1">
                   <button
