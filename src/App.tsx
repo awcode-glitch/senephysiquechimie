@@ -11,9 +11,8 @@ import { Course } from './types';
 import { getWhatsAppLink, WHATSAPP_DISPLAY } from './utils/whatsapp';
 import { subscribeToCourses } from './lib/coursesStore';
 import { 
-  FileText, 
-  Filter, 
-  ListRestart, 
+  FileText,
+  ListRestart,
   Sparkles, 
   Phone, 
   Mail, 
@@ -244,16 +243,7 @@ export default function App() {
           {!ARCHIVE_LEVELS.includes(activeLevel) && (
             <div className="border-b border-slate-200 pb-6 mb-8 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
               <div>
-                <div className="flex items-center space-x-2 text-[#0056D2] text-xs font-mono font-bold uppercase tracking-wider">
-                  <Filter className="h-4 w-4 shrink-0" />
-                  <span>
-                    {activeLevel === 'Search'
-                      ? 'Moteur de Recherche Global'
-                      : 'Espace Classe Virtuel'
-                    }
-                  </span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2 tracking-tight flex items-center gap-2 flex-wrap">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2 flex-wrap">
                   <span>{viewTitle}</span>
                   <span className="text-xs font-mono font-bold bg-slate-100 text-[#0056D2] border border-slate-200 px-2.5 py-0.5 rounded-full shadow-sm">
                     {filteredCourses.length} {filteredCourses.length > 1 ? 'chapitres' : 'chapitre'}
