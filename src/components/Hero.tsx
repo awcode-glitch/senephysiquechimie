@@ -118,15 +118,13 @@ export default function Hero({
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#0056D2]/5 rounded-full blur-3xl pointer-events-none" />
           
           <div className="flex flex-col md:flex-row items-center gap-6">
-            <div className="relative shrink-0">
-              <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-[#0056D2] p-1 shadow-md">
-                <img
-                  src={teacherPhoto}
-                  alt="Photo de l'enseignant, M. Sène"
-                  className="w-full h-full rounded-full object-cover border-2 border-white"
-                />
-              </div>
-              <span className="absolute -bottom-1.5 -right-1.5 bg-[#0056D2] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white shadow">
+            <div className="shrink-0 flex flex-col items-center gap-2.5">
+              <img
+                src={teacherPhoto}
+                alt="Photo de l'enseignant, M. Sène"
+                className="w-36 h-36 sm:w-44 sm:h-44 rounded-full object-cover border-4 border-white shadow-md"
+              />
+              <span className="bg-[#0056D2] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">
                 Enseignant
               </span>
             </div>
