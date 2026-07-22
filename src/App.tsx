@@ -30,6 +30,12 @@ import {
 // These levels use the year/tour/série archive layout (BacArchive) instead of the standard chapter list
 const ARCHIVE_LEVELS = ['BAC', 'CSM', 'CGS'];
 
+// Explains what these acronyms actually mean, shown at the top of their pages
+const ARCHIVE_LEVEL_SUBTITLES: Record<string, string> = {
+  CSM: "Concours d'entrée à l'École Militaire de Santé",
+  CGS: 'Concours Général Sénégalais'
+};
+
 export default function App() {
   const [activeLevel, setActiveLevel] = useState<string>(() =>
     window.location.pathname === '/admin' ? 'Admin' : 'Accueil'
@@ -238,6 +244,12 @@ export default function App() {
                   <span>Retour à l'accueil</span>
                 </button>
               </div>
+
+              {ARCHIVE_LEVEL_SUBTITLES[activeLevel] && (
+                <p className="text-sm text-slate-600 font-medium bg-blue-50/60 border border-blue-100 rounded-xl px-4 py-3 mb-6">
+                  {ARCHIVE_LEVEL_SUBTITLES[activeLevel]}
+                </p>
+              )}
 
           {/* Header Controls for Directory (BAC has its own year/tour/série archive header instead) */}
           {!ARCHIVE_LEVELS.includes(activeLevel) && (
