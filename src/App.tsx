@@ -15,8 +15,7 @@ import {
   ListRestart,
   Sparkles, 
   Phone, 
-  Mail, 
-  MapPin, 
+  Mail,
   Award,
   RefreshCw,
   ArrowLeft, 
@@ -521,10 +520,6 @@ export default function App() {
                   <a href={getWhatsAppLink()} target="_blank" rel="noreferrer noopener" className="hover:text-white transition-colors">
                     {WHATSAPP_DISPLAY} (WhatsApp)
                   </a>
-                </li>
-                <li className="flex items-center space-x-2 text-blue-200">
-                  <MapPin className="h-3.5 w-3.5 text-blue-400 shrink-0" />
-                  <span>Lycée Scientifique d'Excellence</span>
                 </li>
               </ul>
             </div>
