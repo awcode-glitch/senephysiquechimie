@@ -206,12 +206,11 @@ export default function App() {
       {activeLevel === 'Accueil' && (
         <div className="animate-in fade-in duration-300">
           {/* Welcome Hero Section with search */}
-          <Hero 
+          <Hero
             searchQuery={searchQuery}
             setSearchQuery={handleSearchSubmit}
             setActiveLevel={setActiveLevel}
             scrollToSection={scrollToSection}
-            totalCoursesCount={courses.length}
           />
 
           {/* Core Level Navigation Portal - Grid of Classes */}

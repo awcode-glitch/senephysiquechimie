@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Sparkles, BookOpen, Award, FileDown, GraduationCap, ChevronRight } from 'lucide-react';
+import { Search, Sparkles, GraduationCap, ChevronRight } from 'lucide-react';
 import HeroSlideshow from './HeroSlideshow';
 import teacherPhoto from '../assets/teacher/mr-sene.png';
 
@@ -8,15 +8,13 @@ interface HeroProps {
   setSearchQuery: (query: string) => void;
   setActiveLevel: (level: string) => void;
   scrollToSection: (sectionId: string) => void;
-  totalCoursesCount: number;
 }
 
 export default function Hero({
   searchQuery,
   setSearchQuery,
   setActiveLevel,
-  scrollToSection,
-  totalCoursesCount
+  scrollToSection
 }: HeroProps) {
   const [localSearch, setLocalSearch] = useState('');
 
@@ -31,12 +29,6 @@ export default function Hero({
     scrollToSection('telechargements');
   };
 
-  const stats = [
-    { label: 'Cours et chapitres rédigés', value: totalCoursesCount.toString(), icon: BookOpen, color: 'text-[#0056D2]', bg: 'bg-[#0056D2]/5' },
-    { label: 'Sujets et Corrigés de BAC', value: '4+', icon: Award, color: 'text-[#0056D2]', bg: 'bg-[#0056D2]/5' },
-    { label: 'Fascicules & Livres d\'exercices', value: '3+', icon: FileDown, color: 'text-[#0056D2]', bg: 'bg-[#0056D2]/5' },
-    { label: 'Niveaux scolaires couverts', value: '6+', icon: GraduationCap, color: 'text-[#0056D2]', bg: 'bg-[#0056D2]/5' },
-  ];
 
   return (
     <div id="accueil" className="relative overflow-hidden bg-gradient-to-b from-[#0056D2]/5 via-white to-[#F5F7FA] pb-16 border-b border-slate-200/60 transition-colors duration-300">
@@ -119,26 +111,6 @@ export default function Hero({
               BAC S
             </button>
           </div>
-        </div>
-
-        {/* Dynamic Statistics Panel */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-          {stats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="relative p-5 rounded-2xl bg-white border border-slate-200 shadow-sm group hover:border-[#0056D2]/40 transition-all duration-300 animate-in fade-in zoom-in-95 duration-200"
-            >
-              <div className="flex items-center space-x-3.5 mb-2.5">
-                <div className={`p-2.5 rounded-xl ${stat.bg} ${stat.color} transition-all duration-300`}>
-                  <stat.icon className="h-5 w-5" />
-                </div>
-                <span className="text-2xl font-black text-[#1F1F1F] font-sans">{stat.value}</span>
-              </div>
-              <p className="text-xs font-bold text-slate-600 line-clamp-2 leading-relaxed">
-                {stat.label}
-              </p>
-            </div>
-          ))}
         </div>
 
         {/* Beautiful Welcoming Message Card from the PC teacher */}
