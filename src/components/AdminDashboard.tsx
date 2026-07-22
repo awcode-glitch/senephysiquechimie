@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from 'firebase/auth';
 import { auth } from '../lib/firebase';
-import { saveCourse, deleteCourse, seedCoursesIfEmpty } from '../lib/coursesStore';
+import { saveCourse, deleteCourse, deleteCourses, seedCoursesIfEmpty } from '../lib/coursesStore';
 import { uploadCoursePdf, MAX_PDF_BYTES, formatFileSize } from '../lib/cloudinary';
 import { Course } from '../types';
-import { Lock, ShieldCheck, Plus, Pencil, Trash2, X, Save, ArrowLeft, Filter, Search, Upload, FileCheck2, LogOut, KeyRound } from 'lucide-react';
+import { SEED_COURSE_IDS } from '../data/courses';
+import { Lock, ShieldCheck, Plus, Pencil, Trash2, X, Save, ArrowLeft, Filter, Search, Upload, FileCheck2, LogOut, KeyRound, Sparkles } from 'lucide-react';
 
 interface AdminDashboardProps {
   courses: Course[];
@@ -205,6 +206,19 @@ export default function AdminDashboard({ courses, onClose }: AdminDashboardProps
     }
   };
 
+  const [isCleaningDemo, setIsCleaningDemo] = useState(false);
+  const demoCourseIds = courses.filter((c) => SEED_COURSE_IDS.includes(c.id)).map((c) => c.id);
+
+  const handleCleanupDemo = async () => {
+    if (!window.confirm(`Supprimer les ${demoCourseIds.length} cours de démonstration restants ?`)) return;
+    setIsCleaningDemo(true);
+    try {
+      await deleteCourses(demoCourseIds);
+    } finally {
+      setIsCleaningDemo(false);
+    }
+  };
+
   const filteredCourses = courses.filter((c) => {
     if (filterLevel !== 'All' && c.level !== filterLevel) return false;
     if (filterSubject !== 'All' && c.subject !== filterSubject) return false;
@@ -292,8 +306,18 @@ export default function AdminDashboard({ courses, onClose }: AdminDashboardProps
         </div>
       </div>
 
-      {/* Add button */}
-      <div className="flex justify-end mb-4">
+      {/* Add button + one-time demo cleanup */}
+      <div className="flex justify-end items-center gap-3 mb-4">
+        {demoCourseIds.length > 0 && (
+          <button
+            onClick={handleCleanupDemo}
+            disabled={isCleaningDemo}
+            className="inline-flex items-center gap-2 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 font-bold text-xs px-4 py-2.5 rounded-xl transition-colors cursor-pointer disabled:opacity-50"
+          >
+            <Sparkles className="h-4 w-4" />
+            {isCleaningDemo ? 'Suppression...' : `Nettoyer les ${demoCourseIds.length} cours de démo`}
+          </button>
+        )}
         <button
           onClick={() => { resetForm(); setShowForm(true); }}
           className="inline-flex items-center gap-2 bg-[#0056D2] hover:bg-[#00419e] text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition-colors cursor-pointer"

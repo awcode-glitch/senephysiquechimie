@@ -46,3 +46,10 @@ export async function saveCourse(course: Course): Promise<void> {
 export async function deleteCourse(id: string): Promise<void> {
   await deleteDoc(doc(db, COURSES_COLLECTION, id));
 }
+
+/** Bulk delete, used to clear out leftover demo/seed courses in one action. */
+export async function deleteCourses(ids: string[]): Promise<void> {
+  const batch = writeBatch(db);
+  ids.forEach((id) => batch.delete(doc(db, COURSES_COLLECTION, id)));
+  await batch.commit();
+}

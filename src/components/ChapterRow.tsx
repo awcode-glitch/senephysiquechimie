@@ -19,34 +19,16 @@ interface ChapterRowProps {
   key?: string;
 }
 
-export const getChapterVideoUrl = (courseId: string, title: string, youtubeUrl?: string): string => {
+export const getChapterVideoUrl = (title: string, youtubeUrl?: string): string => {
   if (youtubeUrl) return youtubeUrl;
-
-  // High quality educational default videos
-  const defaults: Record<string, string> = {
-    'ts-p1': 'https://www.youtube.com/watch?v=9L-eD6_FkCg', // Cinématique Newton
-    'ts-c1': 'https://www.youtube.com/watch?v=VAs5gNCOaXw', // Cinétique Chimique
-    'ts-p2': 'https://www.youtube.com/watch?v=7hXzU3Y86zY', // Ondes et dualité
-    'ts-c2': 'https://www.youtube.com/watch?v=1uH05zM_57E', // Acido-basique pH
-    'ts-p3': 'https://www.youtube.com/watch?v=jHq_T7D39R4', // Thermodynamique
-    '1s-p1': 'https://www.youtube.com/watch?v=1F9N4_Q6fM8', // Champs et interactions
-    '1s-c1': 'https://www.youtube.com/watch?v=b8nPhy7i0Xw', // Molécules cohésion
-    '1s-p2': 'https://www.youtube.com/watch?v=48-g-W26XzY', // Énergie mécanique
-    '1s-c2': 'https://www.youtube.com/watch?v=H7SskOid6H4', // Spectrophotométrie
-    '2s-p1': 'https://www.youtube.com/watch?v=3RAtzby4Oig', // Signaux médecine
-    '2s-c1': 'https://www.youtube.com/watch?v=K1hP7I0X3Z0', // Atome chimie
-    '2s-p2': 'https://www.youtube.com/watch?v=v3vRmsWz1rU', // Mouvement forces
-    '2s-c2': 'https://www.youtube.com/watch?v=P_mSbyg_LVs', // Quantité mole
-  };
-  
-  return defaults[courseId] || `https://www.youtube.com/results?search_query=Cours+Physique+Chimie+${encodeURIComponent(title)}`;
+  return `https://www.youtube.com/results?search_query=Cours+Physique+Chimie+${encodeURIComponent(title)}`;
 };
 
 export default function ChapterRow({ course, onDownloadClick }: ChapterRowProps) {
   const [videoUrl, setVideoUrl] = useState('');
 
   useEffect(() => {
-    setVideoUrl(getChapterVideoUrl(course.id, course.title, course.youtubeUrl));
+    setVideoUrl(getChapterVideoUrl(course.title, course.youtubeUrl));
   }, [course.id, course.title, course.youtubeUrl]);
 
   // Real Storage URLs (https://...) can be opened directly. Legacy base64
