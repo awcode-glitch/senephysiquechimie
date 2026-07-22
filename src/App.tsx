@@ -423,12 +423,12 @@ export default function App() {
 
       {/* 5. Custom Professional Footer */}
       <footer id="app-footer" className="bg-[#001e62] border-t border-[#001440] text-blue-100 text-xs mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+
             {/* Column 1: Teacher Bio & Logo */}
-            <div className="md:col-span-1.5 flex flex-col space-y-4">
+            <div className="md:col-span-1.5 flex flex-col space-y-2.5">
               <div className="flex items-center space-x-3 select-none">
                 <div className="p-2 rounded-lg bg-blue-900 border border-blue-800/50">
                   <Award className="h-5 w-5 text-blue-300" />
@@ -443,11 +443,11 @@ export default function App() {
             </div>
 
             {/* Column 2: Secondary Levels */}
-            <div className="flex flex-col space-y-3">
+            <div className="flex flex-col space-y-1.5">
               <h4 className="text-xs font-bold text-white font-mono uppercase tracking-wider text-blue-300">
                 Niveaux Scolaires
               </h4>
-              <ul className="space-y-2 text-[11px]">
+              <ul className="space-y-1 text-[11px]">
                 <li>
                   <button onClick={() => setActiveLevel('TS')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
                     Terminale S (TS)
@@ -477,11 +477,11 @@ export default function App() {
             </div>
 
             {/* Column 3: Advanced Topics */}
-            <div className="flex flex-col space-y-3">
+            <div className="flex flex-col space-y-1.5">
               <h4 className="text-xs font-bold text-white font-mono uppercase tracking-wider text-blue-300">
                 Spécialités & Recueils
               </h4>
-              <ul className="space-y-2 text-[11px]">
+              <ul className="space-y-1 text-[11px]">
                 <li>
                   <button onClick={() => setActiveLevel('Fascicules')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
                     Fascicules d'exercices
@@ -506,11 +506,11 @@ export default function App() {
             </div>
 
             {/* Column 4: Contact details info */}
-            <div className="flex flex-col space-y-3">
+            <div className="flex flex-col space-y-1.5">
               <h4 className="text-xs font-bold text-white font-mono uppercase tracking-wider text-blue-300">
                 Contact & Coordonnées
               </h4>
-              <ul className="space-y-2 text-[11px] font-medium">
+              <ul className="space-y-1 text-[11px] font-medium">
                 <li className="flex items-center space-x-2 text-blue-200">
                   <Mail className="h-3.5 w-3.5 text-blue-400 shrink-0" />
                   <span className="hover:text-white transition-colors cursor-pointer select-all">maw106277@gmail.com</span>
@@ -527,7 +527,7 @@ export default function App() {
           </div>
 
           {/* Legal / Copyright Bottom */}
-          <div className="mt-12 pt-6 border-t border-blue-900 flex items-center justify-center text-blue-300 text-[10px] font-mono">
+          <div className="mt-6 pt-4 border-t border-blue-900 flex items-center justify-center text-blue-300 text-[10px] font-mono">
             <p>© {new Date().getFullYear()} Senephysiquechimie. Tous droits réservés.</p>
           </div>
 
