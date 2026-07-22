@@ -30,6 +30,7 @@ const LEVELS_WITH_COURS_LINK = ['TS', '1S', '2S'];
 const getQuickLinks = (levelId: string, label: string) => {
   if (SIMPLE_QUICK_LINK_LEVELS.includes(levelId)) {
     return [
+      { title: `Cours ${label}`, subject: 'All' as const, docType: 'Cours' as const },
       { title: `TD ${label}`, subject: 'All' as const, docType: 'TD' as const },
       { title: `Évaluations ${label}`, subject: 'All' as const, docType: 'Évaluation' as const }
     ];
