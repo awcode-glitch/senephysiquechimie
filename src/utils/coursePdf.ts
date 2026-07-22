@@ -52,6 +52,19 @@ export function dataUrlToBlobUrl(dataUrl: string): string {
   return URL.createObjectURL(new Blob([bytes], { type: mime }));
 }
 
+/**
+ * Forces a real download (instead of an in-browser preview) for a Cloudinary URL.
+ * The HTML `download` attribute is ignored by browsers for cross-origin links,
+ * so we rely on Cloudinary's own `fl_attachment` delivery flag instead.
+ */
+export function getCloudinaryDownloadUrl(url: string, filename: string): string {
+  const marker = '/upload/';
+  const idx = url.indexOf(marker);
+  if (idx === -1) return url;
+  const nameWithoutExt = filename.replace(/\.[^.]+$/, '');
+  return `${url.slice(0, idx + marker.length)}fl_attachment:${encodeURIComponent(nameWithoutExt)}/${url.slice(idx + marker.length)}`;
+}
+
 export function getCourseDownloadHref(course: Course): string {
   if (hasRealPdf(course)) return course.pdfUrl;
 

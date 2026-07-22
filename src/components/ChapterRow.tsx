@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Course } from '../types';
-import { getCourseDownloadFilename, getCourseDownloadHref, hasRealPdf, isDataUrlPdf, dataUrlToBlobUrl } from '../utils/coursePdf';
+import { getCourseDownloadFilename, getCourseDownloadHref, getCloudinaryDownloadUrl, hasRealPdf, isDataUrlPdf, dataUrlToBlobUrl } from '../utils/coursePdf';
 import {
   FileText,
   Video,
@@ -158,7 +158,11 @@ export default function ChapterRow({ course, onDownloadClick }: ChapterRowProps)
               </button>
             )}
             <a
-              href={pdfViewUrl ?? getCourseDownloadHref(course)}
+              href={
+                hasRealPdf(course) && !isDataUrlPdf(course)
+                  ? getCloudinaryDownloadUrl(course.pdfUrl, getCourseDownloadFilename(course))
+                  : pdfViewUrl ?? getCourseDownloadHref(course)
+              }
               download={getCourseDownloadFilename(course)}
               className="flex items-center justify-center space-x-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-350 font-bold text-xs py-2.5 px-3 rounded-xl transition-all cursor-pointer shadow-sm"
             >

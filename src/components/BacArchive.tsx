@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Course } from '../types';
-import { getCourseDownloadFilename, getCourseDownloadHref, hasRealPdf, isDataUrlPdf, dataUrlToBlobUrl } from '../utils/coursePdf';
+import { getCourseDownloadFilename, getCourseDownloadHref, getCloudinaryDownloadUrl, hasRealPdf, isDataUrlPdf, dataUrlToBlobUrl } from '../utils/coursePdf';
 import { ChevronDown, CalendarDays, Flag, Eye, Download } from 'lucide-react';
 
 interface BacArchiveProps {
@@ -68,7 +68,11 @@ function BacRow({ course, onDownloadClick }: { course: Course; onDownloadClick: 
       )}
 
       <a
-        href={pdfViewUrl ?? getCourseDownloadHref(course)}
+        href={
+          hasRealPdf(course) && !isDataUrlPdf(course)
+            ? getCloudinaryDownloadUrl(course.pdfUrl, getCourseDownloadFilename(course))
+            : pdfViewUrl ?? getCourseDownloadHref(course)
+        }
         download={getCourseDownloadFilename(course)}
         className="shrink-0 flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 font-bold text-[11px] py-2 px-3 rounded-lg transition-colors cursor-pointer"
       >
