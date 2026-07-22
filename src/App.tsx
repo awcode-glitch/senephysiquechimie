@@ -36,7 +36,7 @@ export default function App() {
     window.location.pathname === '/admin' ? 'Admin' : 'Accueil'
   );
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [selectedSubject, setSelectedSubject] = useState<'All' | 'Physique' | 'Chimie' | 'Mixte'>('All');
+  const [selectedSubject, setSelectedSubject] = useState<'All' | 'Physique' | 'Chimie'>('All');
   const [selectedDocType, setSelectedDocType] = useState<'All' | 'Cours' | 'TD' | 'Évaluation'>('All');
   const [selectedCourseForDownload, setSelectedCourseForDownload] = useState<Course | null>(null);
 
@@ -271,7 +271,7 @@ export default function App() {
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-xs font-semibold text-slate-500 mr-1.5 hidden sm:inline">Matière :</span>
                 <div className="inline-flex bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-inner">
-                  {(['All', 'Physique', 'Chimie', 'Mixte'] as const).map((subject) => (
+                  {(['All', 'Physique', 'Chimie'] as const).map((subject) => (
                     <button
                       key={subject}
                       onClick={() => setSelectedSubject(subject)}

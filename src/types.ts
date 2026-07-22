@@ -3,7 +3,7 @@ export interface Course {
   title: string;
   chapterNumber?: number;
   level: 'TS' | '1S' | '2S' | 'BAC' | 'CSM' | 'Fascicules' | 'CGS' | '3eme' | '4eme';
-  subject: 'Physique' | 'Chimie' | 'Mixte';
+  subject: 'Physique' | 'Chimie';
   description: string;
   fileSize: string;
   downloadsCount: number;

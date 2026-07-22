@@ -25,7 +25,7 @@ const LEVEL_LABELS: Record<Course['level'], string> = {
 };
 
 const LEVEL_ORDER: Course['level'][] = ['TS', '1S', '2S', '3eme', '4eme', 'Fascicules', 'CSM', 'CGS', 'BAC'];
-const SUBJECTS: Course['subject'][] = ['Physique', 'Chimie', 'Mixte'];
+const SUBJECTS: Course['subject'][] = ['Physique', 'Chimie'];
 
 // These levels use the year/tour/série archive layout (BacArchive) on the public site
 const ARCHIVE_LEVELS: Course['level'][] = ['BAC', 'CSM', 'CGS'];
@@ -346,7 +346,7 @@ export default function AdminDashboard({ courses, onClose }: AdminDashboardProps
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className={`grid grid-cols-1 gap-4 ${ARCHIVE_LEVELS.includes(form.level) ? 'sm:grid-cols-2' : 'sm:grid-cols-3'}`}>
             <div>
               <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 font-mono">Niveau</label>
               <select
@@ -357,16 +357,18 @@ export default function AdminDashboard({ courses, onClose }: AdminDashboardProps
                 {LEVEL_ORDER.map((lvl) => <option key={lvl} value={lvl}>{LEVEL_LABELS[lvl]}</option>)}
               </select>
             </div>
-            <div>
-              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 font-mono">Matière</label>
-              <select
-                value={form.subject}
-                onChange={(e) => setForm({ ...form, subject: e.target.value as Course['subject'] })}
-                className="w-full border border-slate-300 focus:border-[#0056D2] rounded-xl px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none transition-colors"
-              >
-                {SUBJECTS.map((s) => <option key={s} value={s}>{s}</option>)}
-              </select>
-            </div>
+            {!ARCHIVE_LEVELS.includes(form.level) && (
+              <div>
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 font-mono">Matière</label>
+                <select
+                  value={form.subject}
+                  onChange={(e) => setForm({ ...form, subject: e.target.value as Course['subject'] })}
+                  className="w-full border border-slate-300 focus:border-[#0056D2] rounded-xl px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none transition-colors"
+                >
+                  {SUBJECTS.map((s) => <option key={s} value={s}>{s}</option>)}
+                </select>
+              </div>
+            )}
             <div>
               <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 font-mono">N° Chapitre (optionnel)</label>
               <input

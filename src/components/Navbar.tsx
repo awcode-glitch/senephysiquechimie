@@ -5,7 +5,7 @@ interface NavbarProps {
   activeLevel: string;
   setActiveLevel: (level: any) => void;
   setSearchQuery: (query: string) => void;
-  setSelectedSubject: (subject: 'All' | 'Physique' | 'Chimie' | 'Mixte') => void;
+  setSelectedSubject: (subject: 'All' | 'Physique' | 'Chimie') => void;
   setSelectedDocType: (docType: 'All' | 'Cours' | 'TD' | 'Évaluation') => void;
   scrollToSection: (sectionId: string) => void;
 }
