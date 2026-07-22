@@ -166,13 +166,19 @@ export default function App() {
     });
   }, [activeLevel, selectedSubject, selectedDocType, searchQuery, courses]);
 
-  // Full syllabus for the current level (ignores subject/search sub-filters), used by the "Programme" table of contents
+  // Full syllabus for the current level (ignores subject/search sub-filters), used by the "Programme" table of contents.
+  // Physique and Chimie are numbered independently, so they're kept as separate lists rather than merged.
   const levelCourses = useMemo(() => {
     if (activeLevel === 'Search') return [];
     return courses
       .filter((course) => course.level === activeLevel)
       .sort((a, b) => (a.chapterNumber ?? 999) - (b.chapterNumber ?? 999));
   }, [activeLevel, courses]);
+
+  const levelCoursesBySubject = useMemo(() => ({
+    Physique: levelCourses.filter((c) => c.subject === 'Physique'),
+    Chimie: levelCourses.filter((c) => c.subject === 'Chimie')
+  }), [levelCourses]);
 
   // Determine current category view title
   const viewTitle = useMemo(() => {
@@ -352,21 +358,34 @@ export default function App() {
                   {levelCourses.length} chapitre{levelCourses.length > 1 ? 's' : ''}
                 </span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 divide-y divide-slate-100 sm:divide-y-0">
-                {levelCourses.map((course, idx) => (
-                  <button
-                    key={course.id}
-                    onClick={() => scrollToSection(`chapter-row-${course.id}`)}
-                    className="group flex items-center gap-3 px-5 sm:px-6 py-3.5 text-left hover:bg-blue-50/50 transition-colors cursor-pointer border-b border-slate-100 sm:border-b-0 sm:even:border-l sm:border-slate-100"
-                  >
-                    <span className="shrink-0 w-7 h-7 rounded-lg bg-[#0056D2]/5 text-[#0056D2] text-[11px] font-mono font-bold flex items-center justify-center border border-blue-100/60 group-hover:bg-[#0056D2] group-hover:text-white transition-colors">
-                      {course.chapterNumber ?? idx + 1}
-                    </span>
-                    <span className="flex-1 text-xs sm:text-sm font-semibold text-slate-700 group-hover:text-[#0056D2] transition-colors line-clamp-1">
-                      {course.title}
-                    </span>
-                    <ChevronRight className="h-4 w-4 text-slate-300 group-hover:text-[#0056D2] shrink-0 transition-colors" />
-                  </button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+                {(['Physique', 'Chimie'] as const).map((subject) => (
+                  <div key={subject} className="flex flex-col">
+                    <div className="px-5 sm:px-6 pt-4 pb-2">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
+                        {subject}
+                      </span>
+                    </div>
+                    {levelCoursesBySubject[subject].length > 0 ? (
+                      levelCoursesBySubject[subject].map((course, idx) => (
+                        <button
+                          key={course.id}
+                          onClick={() => scrollToSection(`chapter-row-${course.id}`)}
+                          className="group flex items-center gap-3 px-5 sm:px-6 py-3 text-left hover:bg-blue-50/50 transition-colors cursor-pointer"
+                        >
+                          <span className="shrink-0 w-7 h-7 rounded-lg bg-[#0056D2]/5 text-[#0056D2] text-[11px] font-mono font-bold flex items-center justify-center border border-blue-100/60 group-hover:bg-[#0056D2] group-hover:text-white transition-colors">
+                            {course.chapterNumber ?? idx + 1}
+                          </span>
+                          <span className="flex-1 text-xs sm:text-sm font-semibold text-slate-700 group-hover:text-[#0056D2] transition-colors line-clamp-1">
+                            {course.title}
+                          </span>
+                          <ChevronRight className="h-4 w-4 text-slate-300 group-hover:text-[#0056D2] shrink-0 transition-colors" />
+                        </button>
+                      ))
+                    ) : (
+                      <p className="px-5 sm:px-6 pb-4 text-xs text-slate-400 font-medium">Aucun chapitre pour l'instant.</p>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
