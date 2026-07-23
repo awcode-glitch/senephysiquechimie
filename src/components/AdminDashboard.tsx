@@ -30,6 +30,9 @@ const SUBJECTS: Course['subject'][] = ['Physique', 'Chimie'];
 // These levels use the year/tour/série archive layout (BacArchive) on the public site
 const ARCHIVE_LEVELS: Course['level'][] = ['BAC', 'CSM', 'CGS'];
 
+// These levels have a Série S/L (filière) split on the public site
+const SERIES_LEVELS: Course['level'][] = ['TS', '1S', '2S'];
+
 const BAC_ROUNDS: NonNullable<Course['examRound']>[] = ['Premier tour', 'Second tour'];
 const BAC_SERIES = ['S1', 'S2', 'L2'];
 const DOC_TYPES: NonNullable<Course['docType']>[] = ['Cours', 'TD', 'Évaluation'];
@@ -45,6 +48,7 @@ const emptyForm = {
   publishDate: new Date().toISOString().slice(0, 10),
   youtubeUrl: '',
   docType: 'Cours' as NonNullable<Course['docType']>,
+  series: 'S' as NonNullable<Course['series']>,
   examYear: new Date().getFullYear().toString(),
   examRound: 'Premier tour' as NonNullable<Course['examRound']>,
   examSeries: 'S1'
@@ -128,6 +132,7 @@ export default function AdminDashboard({ courses, onClose }: AdminDashboardProps
       publishDate: course.publishDate,
       youtubeUrl: course.youtubeUrl || '',
       docType: course.docType || 'Cours',
+      series: course.series || 'S',
       examYear: course.examYear || new Date().getFullYear().toString(),
       examRound: course.examRound || 'Premier tour',
       examSeries: course.examSeries || 'S1'
@@ -186,6 +191,7 @@ export default function AdminDashboard({ courses, onClose }: AdminDashboardProps
         publishDate: form.publishDate,
         youtubeUrl: form.youtubeUrl.trim() || undefined,
         docType: ARCHIVE_LEVELS.includes(form.level) ? undefined : form.docType,
+        series: SERIES_LEVELS.includes(form.level) ? form.series : undefined,
         examYear: ARCHIVE_LEVELS.includes(form.level) ? form.examYear.trim() || undefined : undefined,
         examRound: ARCHIVE_LEVELS.includes(form.level) ? form.examRound : undefined,
         examSeries: form.level === 'BAC' ? form.examSeries.trim() || undefined : undefined
@@ -393,6 +399,21 @@ export default function AdminDashboard({ courses, onClose }: AdminDashboardProps
                 {DOC_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
               </select>
               <p className="text-[10px] text-slate-400 font-medium mt-1">"Cours" = chapitre classique. Choisissez "TD" ou "Évaluation" pour que ce document apparaisse dans les liens rapides du menu de navigation.</p>
+            </div>
+          )}
+
+          {SERIES_LEVELS.includes(form.level) && (
+            <div>
+              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 font-mono">Série</label>
+              <select
+                value={form.series}
+                onChange={(e) => setForm({ ...form, series: e.target.value as NonNullable<Course['series']> })}
+                className="w-full border border-slate-300 focus:border-[#0056D2] rounded-xl px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none transition-colors"
+              >
+                <option value="S">S (Scientifique)</option>
+                <option value="L">L (Littéraire)</option>
+              </select>
+              <p className="text-[10px] text-slate-400 font-medium mt-1">Filière à laquelle ce document est destiné. Les élèves peuvent filtrer par Série sur la page de ce niveau.</p>
             </div>
           )}
 

@@ -14,6 +14,8 @@ export interface Course {
   // Document type, used by the "TD Physique/TD Chimie/Évaluations" navbar quick links.
   // Absent/'Cours' = regular chapter content.
   docType?: 'Cours' | 'TD' | 'Évaluation';
+  // Filière, only meaningful for TS/1S/2S. Absent = 'S' (the site's original audience).
+  series?: 'S' | 'L';
   // BAC-specific archive fields (used only when level === 'BAC')
   examYear?: string;
   examRound?: 'Premier tour' | 'Second tour';

@@ -34,6 +34,9 @@ const ARCHIVE_LEVEL_SUBTITLES: Record<string, string> = {
   CGS: 'Concours Général Sénégalais'
 };
 
+// Only these levels have a Série S/L split — collège, BAC, Fascicules etc. don't need it
+const SERIES_LEVELS = ['TS', '1S', '2S'];
+
 export default function App() {
   const [activeLevel, setActiveLevel] = useState<string>(() =>
     window.location.pathname === '/admin' ? 'Admin' : 'Accueil'
@@ -41,6 +44,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedSubject, setSelectedSubject] = useState<'All' | 'Physique' | 'Chimie'>('All');
   const [selectedDocType, setSelectedDocType] = useState<'All' | 'Cours' | 'TD' | 'Évaluation'>('All');
+  const [selectedSeries, setSelectedSeries] = useState<'All' | 'S' | 'L'>('All');
   const [selectedCourseForDownload, setSelectedCourseForDownload] = useState<Course | null>(null);
 
   // Force light mode on mount
@@ -113,6 +117,7 @@ export default function App() {
     setActiveLevel(level);
     setSelectedSubject('All');
     setSelectedDocType('All');
+    setSelectedSeries('All');
     setSearchQuery('');
   };
 
@@ -121,6 +126,7 @@ export default function App() {
     setSearchQuery(query);
     setSelectedSubject('All');
     setSelectedDocType('All');
+    setSelectedSeries('All');
     if (query.trim() !== '') {
       setActiveLevel('Search');
     } else {
@@ -133,6 +139,7 @@ export default function App() {
     setSearchQuery('');
     setSelectedSubject('All');
     setSelectedDocType('All');
+    setSelectedSeries('All');
   };
 
   // Reset page and filters
@@ -156,6 +163,11 @@ export default function App() {
         return false;
       }
 
+      // 3bis. Série Filter (S / L) — only meaningful for TS/1S/2S
+      if (SERIES_LEVELS.includes(activeLevel) && selectedSeries !== 'All' && (course.series || 'S') !== selectedSeries) {
+        return false;
+      }
+
       // 4. Search Query Filter
       if (searchQuery.trim() !== '') {
         const query = searchQuery.toLowerCase();
@@ -170,7 +182,7 @@ export default function App() {
 
       return true;
     });
-  }, [activeLevel, selectedSubject, selectedDocType, searchQuery, courses]);
+  }, [activeLevel, selectedSubject, selectedDocType, selectedSeries, searchQuery, courses]);
 
   // Full syllabus for the current level (ignores subject/search sub-filters), used by the "Programme" table of contents.
   // Physique and Chimie are numbered independently, so they're kept as separate lists rather than merged.
@@ -211,6 +223,7 @@ export default function App() {
         setSearchQuery={setSearchQuery}
         setSelectedSubject={setSelectedSubject}
         setSelectedDocType={setSelectedDocType}
+        setSelectedSeries={setSelectedSeries}
         scrollToSection={scrollToSection}
       />
 
@@ -281,6 +294,26 @@ export default function App() {
 
               {/* Subject Filter Tabs */}
               <div className="flex flex-wrap items-center gap-2">
+                {SERIES_LEVELS.includes(activeLevel) && (
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-semibold text-slate-500 mr-1.5 hidden sm:inline">Série :</span>
+                    <div className="inline-flex bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-inner">
+                      {(['All', 'S', 'L'] as const).map((series) => (
+                        <button
+                          key={series}
+                          onClick={() => setSelectedSeries(series)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-150 cursor-pointer ${
+                            selectedSeries === series
+                              ? 'bg-white text-[#0056D2] border border-slate-200 shadow-sm'
+                              : 'text-slate-600 hover:text-[#0056D2] hover:bg-white/50'
+                          }`}
+                        >
+                          {series === 'All' ? 'Toutes' : series}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <span className="text-xs font-semibold text-slate-500 mr-1.5 hidden sm:inline">Matière :</span>
                 <div className="inline-flex bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-inner">
                   {(['All', 'Physique', 'Chimie'] as const).map((subject) => (
@@ -320,6 +353,11 @@ export default function App() {
                   Type: {selectedDocType}
                 </span>
               )}
+              {SERIES_LEVELS.includes(activeLevel) && selectedSeries !== 'All' && (
+                <span className="bg-white text-rose-700 px-2.5 py-1 rounded-lg border border-slate-200 font-semibold font-mono shadow-sm">
+                  Série: {selectedSeries}
+                </span>
+              )}
               {searchQuery && (
                 <span className="bg-white text-purple-700 px-2.5 py-1 rounded-lg border border-slate-200 font-semibold font-mono italic shadow-sm">
                   Recherche: "{searchQuery}"
@@ -340,7 +378,7 @@ export default function App() {
                 />
               </div>
 
-              {(searchQuery || selectedSubject !== 'All' || selectedDocType !== 'All') && (
+              {(searchQuery || selectedSubject !== 'All' || selectedDocType !== 'All' || (SERIES_LEVELS.includes(activeLevel) && selectedSeries !== 'All')) && (
                 <button
                   onClick={handleResetFilters}
                   className="flex items-center space-x-1 text-[#0056D2] hover:text-blue-800 font-bold font-mono text-[10px] uppercase tracking-wider transition-colors cursor-pointer"

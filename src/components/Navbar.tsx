@@ -8,6 +8,7 @@ interface NavbarProps {
   setSearchQuery: (query: string) => void;
   setSelectedSubject: (subject: 'All' | 'Physique' | 'Chimie') => void;
   setSelectedDocType: (docType: 'All' | 'Cours' | 'TD' | 'Évaluation') => void;
+  setSelectedSeries: (series: 'All' | 'S' | 'L') => void;
   scrollToSection: (sectionId: string) => void;
 }
 
@@ -42,6 +43,7 @@ export default function Navbar({
   setSearchQuery,
   setSelectedSubject,
   setSelectedDocType,
+  setSelectedSeries,
   scrollToSection
 }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -72,6 +74,7 @@ export default function Navbar({
       setActiveLevel(itemId);
       setSelectedSubject('All');
       setSelectedDocType('All');
+      setSelectedSeries('All');
       setSearchQuery('');
       scrollToSection('telechargements');
     }
@@ -83,6 +86,7 @@ export default function Navbar({
     setActiveLevel(levelId);
     setSelectedSubject(subject);
     setSelectedDocType(docType);
+    setSelectedSeries('All');
     setSearchQuery('');
     scrollToSection('telechargements');
     setIsMobileMenuOpen(false);
