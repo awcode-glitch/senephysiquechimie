@@ -346,7 +346,7 @@ export default function App() {
               <span>Filtres actifs :</span>
               {activeLevel !== 'Search' && (
                 <span className="bg-white text-[#0056D2] px-2.5 py-1 rounded-lg border border-slate-200 font-semibold font-mono shadow-sm">
-                  Niveau: {activeLevel === '3eme' ? '3ème' : activeLevel === '4eme' ? '4ème' : activeLevel}
+                  Niveau: {activeLevel === '3eme' ? '3ème' : activeLevel === '4eme' ? '4ème' : SERIES_LEVELS.includes(activeLevel) && selectedSeries === 'L' ? `${activeLevel.replace('S', '')}L` : activeLevel}
                 </span>
               )}
               {selectedSubject !== 'All' && (
