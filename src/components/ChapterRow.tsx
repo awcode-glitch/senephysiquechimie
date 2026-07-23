@@ -24,6 +24,20 @@ export const getChapterVideoUrl = (title: string, youtubeUrl?: string): string =
   return `https://www.youtube.com/results?search_query=Cours+Physique+Chimie+${encodeURIComponent(title)}`;
 };
 
+// TS/1S/2S host both Série S and Série L content, so the level badge alone is
+// ambiguous (e.g. on the global Search page, S and L versions of a chapter can
+// appear side by side) — spell out the Série too.
+const getClasseLabel = (course: Course): string => {
+  if (course.level === '3eme') return 'Troisième (3e)';
+  if (course.level === '4eme') return 'Quatrième (4e)';
+  if (course.level === 'BAC') return 'Annales BAC';
+  if (course.level === 'TS' || course.level === '1S' || course.level === '2S') {
+    const baseName = course.level === 'TS' ? 'Terminale' : course.level === '1S' ? 'Première' : 'Seconde';
+    return `${baseName} · Série ${course.series || 'S'}`;
+  }
+  return course.level;
+};
+
 export default function ChapterRow({ course, onDownloadClick }: ChapterRowProps) {
   const [videoUrl, setVideoUrl] = useState('');
 
@@ -94,7 +108,7 @@ export default function ChapterRow({ course, onDownloadClick }: ChapterRowProps)
               <span>{course.subject}</span>
             </span>
             <span className="bg-slate-100 text-slate-700 border-slate-200/60 px-2 py-0.5 rounded text-[10px] font-bold uppercase border">
-              Classe : {course.level === '3eme' ? 'Troisième (3e)' : course.level === '4eme' ? 'Quatrième (4e)' : course.level === 'BAC' ? 'Annales BAC' : course.level}
+              Classe : {getClasseLabel(course)}
             </span>
             <span className="text-[10px] text-slate-400 font-mono flex items-center space-x-1">
               <Calendar className="h-3 w-3" />

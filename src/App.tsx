@@ -206,7 +206,7 @@ export default function App() {
     if (activeLevel === 'Search') return `Résultats de recherche pour "${searchQuery}"`;
     if (activeLevel === '3eme') return 'Classe de Troisième (3ème)';
     if (activeLevel === '4eme') return 'Classe de Quatrième (4ème)';
-    if (activeLevel === 'BAC') return 'Annales & Corrections du BAC S';
+    if (activeLevel === 'BAC') return 'Annales & Corrections du BAC';
     if (activeLevel === 'CSM') return 'Cours Santé Militaire (CSM)';
     if (activeLevel === 'CGS') return 'Concours Général Sénégalais (CGS)';
     if (activeLevel === 'Fascicules') return 'Fascicules d\'exercices & Recueils';

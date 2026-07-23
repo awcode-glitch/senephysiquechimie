@@ -8,6 +8,15 @@ interface PdfPreviewModalProps {
   onClose: () => void;
 }
 
+// TS/1S/2S host both Série S and Série L content, so the bare level id is
+// ambiguous on its own — spell out the Série too.
+const getLevelLabel = (course: Course): string => {
+  if (course.level === 'TS' || course.level === '1S' || course.level === '2S') {
+    return `${course.level} · Série ${course.series || 'S'}`;
+  }
+  return course.level;
+};
+
 export default function PdfPreviewModal({ course, onClose }: PdfPreviewModalProps) {
   if (!course) return null;
 
@@ -71,7 +80,7 @@ export default function PdfPreviewModal({ course, onClose }: PdfPreviewModalProp
             </div>
             <div className="text-center">
               <span className="block text-slate-400 uppercase tracking-wider text-[8px] mb-0.5 font-bold">Niveau</span>
-              <span className="text-[#0056D2]">{course.level}</span>
+              <span className="text-[#0056D2]">{getLevelLabel(course)}</span>
             </div>
             <div className="text-right">
               <span className="block text-slate-400 uppercase tracking-wider text-[8px] mb-0.5 font-bold">Publié le</span>
@@ -100,7 +109,7 @@ export default function PdfPreviewModal({ course, onClose }: PdfPreviewModalProp
                 {/* Title inside document */}
                 <div className="text-center border-b border-slate-200 pb-4 mb-4">
                   <span className="text-[9px] font-mono font-bold bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded border border-emerald-100">
-                    PROGRAMME OFFICIEL - NIVEAU {course.level}
+                    PROGRAMME OFFICIEL - NIVEAU {getLevelLabel(course)}
                   </span>
                   <h1 className="text-lg font-extrabold text-slate-900 mt-2">
                     {course.title}

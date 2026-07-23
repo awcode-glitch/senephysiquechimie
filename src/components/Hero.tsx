@@ -108,7 +108,7 @@ export default function Hero({
               onClick={() => handleLevelQuickClick('BAC')}
               className="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:border-[#0056D2] hover:text-[#0056D2] hover:bg-blue-50/50 transition-all cursor-pointer shadow-sm"
             >
-              BAC S
+              BAC
             </button>
           </div>
         </div>
