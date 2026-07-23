@@ -210,11 +210,14 @@ export default function App() {
     if (activeLevel === 'CSM') return 'Cours Santé Militaire (CSM)';
     if (activeLevel === 'CGS') return 'Concours Général Sénégalais (CGS)';
     if (activeLevel === 'Fascicules') return 'Fascicules d\'exercices & Recueils';
-    if (activeLevel === 'TS') return 'Classe de Terminale S (TS)';
-    if (activeLevel === '1S') return 'Classe de Première S (1S)';
-    if (activeLevel === '2S') return 'Classe de Seconde S (2S)';
+    if (SERIES_LEVELS.includes(activeLevel)) {
+      const baseName = activeLevel === 'TS' ? 'Terminale' : activeLevel === '1S' ? 'Première' : 'Seconde';
+      const shortPrefix = activeLevel === 'TS' ? 'T' : activeLevel === '1S' ? '1' : '2';
+      if (selectedSeries === 'All') return `Classe de ${baseName}`;
+      return `Classe de ${baseName} ${selectedSeries} (${shortPrefix}${selectedSeries})`;
+    }
     return `Espace de cours ${activeLevel}`;
-  }, [activeLevel, searchQuery]);
+  }, [activeLevel, selectedSeries, searchQuery]);
 
   return (
     <div id="app-root" className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans antialiased selection:bg-blue-100 selection:text-slate-900 transition-colors duration-300">
@@ -400,6 +403,7 @@ export default function App() {
                 <BookOpen className="h-4 w-4 text-[#0056D2]" />
                 <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider font-mono">
                   Programme {activeLevel === '3eme' ? '3ème' : activeLevel === '4eme' ? '4ème' : activeLevel}
+                  {SERIES_LEVELS.includes(activeLevel) && selectedSeries !== 'All' ? ` (Série ${selectedSeries})` : ''}
                 </h3>
                 <span className="ml-auto text-[10px] font-mono font-bold text-[#0056D2] bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
                   {levelCourses.length} chapitre{levelCourses.length > 1 ? 's' : ''}
