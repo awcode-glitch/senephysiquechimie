@@ -133,6 +133,12 @@ export default function Hero({
               <h3 className="text-lg font-bold text-slate-900 text-center md:text-left">
                 Mot de bienvenue de votre enseignant
               </h3>
+              <p className="mt-1 text-sm font-bold text-[#0056D2]">
+                Mousa SENE
+              </p>
+              <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-wide">
+                Professeur de Sciences Physiques — Lycée Banque Islamique (LBI)
+              </p>
               <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed italic">
                 "Bonjour ! Bienvenue sur la plateforme SENEPHYSIQUECHIMIE. Cette plateforme a pour but d'échanger et de partager des cours et des exercices de sciences physiques. Notre objectif : rendre les sciences physiques accessibles chez les élèves."
               </p>
