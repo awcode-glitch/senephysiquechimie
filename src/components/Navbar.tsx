@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Menu, X, ChevronDown, Atom, FlaskConical, GraduationCap } from 'lucide-react';
 
 interface NavbarProps {
@@ -203,11 +204,13 @@ export default function Navbar({
         </div>
       </div>
 
-      {/* Mobile Menu Panel — full-screen, clean list style.
-          The slide transition lives on this outer element only; the inner
-          element handles scrolling. Combining transform + overflow-y-auto on
-          the same node makes Safari iOS paint the scrollable content
-          incorrectly (items appearing one at a time instead of all at once). */}
+      {/* Mobile Menu Panel — rendered via a portal straight into <body>.
+          The <nav> above uses backdrop-blur, which (like transform/filter)
+          creates a new containing block for position:fixed descendants — so a
+          fixed full-screen panel nested inside it only ever spanned the nav's
+          own ~56px height instead of the whole viewport. Portal-ing it out
+          from under <nav> avoids that trap entirely. */}
+      {createPortal(
       <div
         id="mobile-menu-panel"
         className={`fixed inset-0 z-50 xl:hidden transition-transform duration-300 ease-out ${
@@ -293,7 +296,9 @@ export default function Navbar({
             })}
           </div>
         </div>
-      </div>
+      </div>,
+      document.body
+      )}
     </nav>
   );
 }
