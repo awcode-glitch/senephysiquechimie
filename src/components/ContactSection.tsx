@@ -190,9 +190,9 @@ export default function ContactSection() {
                         onChange={handleInputChange}
                         className="w-full bg-white border border-slate-300 focus:border-[#0056D2] rounded-xl px-3.5 py-3 text-xs text-slate-800 focus:outline-none transition-colors"
                       >
-                        <option value="TS">Terminale S (TS)</option>
-                        <option value="1S">Première S (1S)</option>
-                        <option value="2S">Seconde S (2S)</option>
+                        <option value="TS">Terminale</option>
+                        <option value="1S">Première</option>
+                        <option value="2S">Seconde</option>
                         <option value="Collège">Collège (4e/3e)</option>
                         <option value="Autre">Autre niveau</option>
                       </select>

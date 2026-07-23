@@ -84,19 +84,19 @@ export default function Hero({
               onClick={() => handleLevelQuickClick('TS')}
               className="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:border-[#0056D2] hover:text-[#0056D2] hover:bg-blue-50/50 transition-all cursor-pointer shadow-sm"
             >
-              Terminale S (TS)
+              Terminale
             </button>
             <button
               onClick={() => handleLevelQuickClick('1S')}
               className="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:border-[#0056D2] hover:text-[#0056D2] hover:bg-blue-50/50 transition-all cursor-pointer shadow-sm"
             >
-              Première S (1S)
+              Première
             </button>
             <button
               onClick={() => handleLevelQuickClick('2S')}
               className="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-700 hover:border-[#0056D2] hover:text-[#0056D2] hover:bg-blue-50/50 transition-all cursor-pointer shadow-sm"
             >
-              Seconde S (2S)
+              Seconde
             </button>
             <button
               onClick={() => handleLevelQuickClick('Fascicules')}

@@ -13,9 +13,9 @@ interface AdminDashboardProps {
 }
 
 const LEVEL_LABELS: Record<Course['level'], string> = {
-  TS: 'Terminale S (TS)',
-  '1S': 'Première S (1S)',
-  '2S': 'Seconde S (2S)',
+  TS: 'Terminale',
+  '1S': 'Première',
+  '2S': 'Seconde',
   '3eme': 'Troisième (3ème)',
   '4eme': 'Quatrième (4ème)',
   Fascicules: 'Fascicules & Livres',

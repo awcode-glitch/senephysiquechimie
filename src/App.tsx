@@ -517,17 +517,17 @@ export default function App() {
               <ul className="space-y-1 text-[11px]">
                 <li>
                   <button onClick={() => handleNavigateToLevel('TS')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
-                    Terminale S (TS)
+                    Terminale
                   </button>
                 </li>
                 <li>
                   <button onClick={() => handleNavigateToLevel('1S')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
-                    Première S (1S)
+                    Première
                   </button>
                 </li>
                 <li>
                   <button onClick={() => handleNavigateToLevel('2S')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
-                    Seconde S (2S)
+                    Seconde
                   </button>
                 </li>
                 <li>

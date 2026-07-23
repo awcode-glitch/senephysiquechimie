@@ -28,21 +28,21 @@ export default function ClassPortal({ courses, onSelectLevel }: ClassPortalProps
   const portalLevels = [
     {
       id: 'TS',
-      title: 'Terminale S (TS)',
+      title: 'Terminale',
       desc: 'Préparation intensive au baccalauréat avec chapitres de Cinématique, Énergie, Cinétique et transformations Acido-Basiques.',
       icon: GraduationCap,
       tag: 'Lycée • Terminale'
     },
     {
       id: '1S',
-      title: 'Première S (1S)',
+      title: 'Première',
       desc: 'Bases solides en forces et champs fondamentaux, représentations de Lewis des molécules, énergie mécanique et dosages.',
       icon: Atom,
       tag: 'Lycée • Première'
     },
     {
       id: '2S',
-      title: 'Seconde S (2S)',
+      title: 'Seconde',
       desc: 'Introduction aux sciences physiques et chimiques du lycée : signaux périodiques, atomes, forces et calcul de moles.',
       icon: Beaker,
       tag: 'Lycée • Seconde'
