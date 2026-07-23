@@ -186,12 +186,15 @@ export default function App() {
 
   // Full syllabus for the current level (ignores subject/search sub-filters), used by the "Programme" table of contents.
   // Physique and Chimie are numbered independently, so they're kept as separate lists rather than merged.
+  // Série S and Série L are entirely different programmes though, so unlike Matière, the Série filter
+  // DOES apply here — otherwise the Terminale L page would show Terminale S's chapter list.
   const levelCourses = useMemo(() => {
     if (activeLevel === 'Search') return [];
     return courses
       .filter((course) => course.level === activeLevel)
+      .filter((course) => !SERIES_LEVELS.includes(activeLevel) || selectedSeries === 'All' || (course.series || 'S') === selectedSeries)
       .sort((a, b) => (a.chapterNumber ?? 999) - (b.chapterNumber ?? 999));
-  }, [activeLevel, courses]);
+  }, [activeLevel, selectedSeries, courses]);
 
   const levelCoursesBySubject = useMemo(() => ({
     Physique: levelCourses.filter((c) => c.subject === 'Physique'),
