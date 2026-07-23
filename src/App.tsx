@@ -106,9 +106,21 @@ export default function App() {
     }
   };
 
+  // Navigate to a level/page while always clearing leftover Matière/Type/Recherche
+  // filters from wherever the student was before — otherwise a stale "Type: TD"
+  // filter can silently hide every course on the next page ("Aucun cours trouvé").
+  const handleNavigateToLevel = (level: string) => {
+    setActiveLevel(level);
+    setSelectedSubject('All');
+    setSelectedDocType('All');
+    setSearchQuery('');
+  };
+
   // Handle homepage search submission
   const handleSearchSubmit = (query: string) => {
     setSearchQuery(query);
+    setSelectedSubject('All');
+    setSelectedDocType('All');
     if (query.trim() !== '') {
       setActiveLevel('Search');
     } else {
@@ -124,12 +136,7 @@ export default function App() {
   };
 
   // Reset page and filters
-  const handleResetToAccueil = () => {
-    setActiveLevel('Accueil');
-    setSearchQuery('');
-    setSelectedSubject('All');
-    setSelectedDocType('All');
-  };
+  const handleResetToAccueil = () => handleNavigateToLevel('Accueil');
 
   // Filter courses dynamically based on Level, Subject, Document type, and Search query
   const filteredCourses = useMemo(() => {
@@ -214,14 +221,14 @@ export default function App() {
           <Hero
             searchQuery={searchQuery}
             setSearchQuery={handleSearchSubmit}
-            setActiveLevel={setActiveLevel}
+            setActiveLevel={handleNavigateToLevel}
             scrollToSection={scrollToSection}
           />
 
           {/* Core Level Navigation Portal - Grid of Classes */}
-          <ClassPortal 
+          <ClassPortal
             courses={courses}
-            onSelectLevel={(level) => setActiveLevel(level)}
+            onSelectLevel={handleNavigateToLevel}
           />
         </div>
       )}
@@ -463,27 +470,27 @@ export default function App() {
               </h4>
               <ul className="space-y-1 text-[11px]">
                 <li>
-                  <button onClick={() => setActiveLevel('TS')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
+                  <button onClick={() => handleNavigateToLevel('TS')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
                     Terminale S (TS)
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => setActiveLevel('1S')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
+                  <button onClick={() => handleNavigateToLevel('1S')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
                     Première S (1S)
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => setActiveLevel('2S')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
+                  <button onClick={() => handleNavigateToLevel('2S')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
                     Seconde S (2S)
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => setActiveLevel('3eme')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
+                  <button onClick={() => handleNavigateToLevel('3eme')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
                     Troisième (3ème)
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => setActiveLevel('4eme')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
+                  <button onClick={() => handleNavigateToLevel('4eme')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
                     Quatrième (4ème)
                   </button>
                 </li>
@@ -497,22 +504,22 @@ export default function App() {
               </h4>
               <ul className="space-y-1 text-[11px]">
                 <li>
-                  <button onClick={() => setActiveLevel('Fascicules')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
+                  <button onClick={() => handleNavigateToLevel('Fascicules')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
                     Fascicules d'exercices
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => setActiveLevel('CSM')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
+                  <button onClick={() => handleNavigateToLevel('CSM')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
                     Cours Santé Militaire (CSM)
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => setActiveLevel('CGS')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
+                  <button onClick={() => handleNavigateToLevel('CGS')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
                     Concours Général Sénégalais (CGS)
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => setActiveLevel('BAC')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
+                  <button onClick={() => handleNavigateToLevel('BAC')} className="hover:text-white transition-colors cursor-pointer text-left font-medium">
                     Annales de BAC rédigées
                   </button>
                 </li>
