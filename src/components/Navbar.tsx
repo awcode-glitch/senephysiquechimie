@@ -236,8 +236,8 @@ export default function Navbar({
             </button>
           </div>
 
-          {/* Compact navigation list — sized to always fit on one screen, no scrolling */}
-          <div className="flex flex-col px-5 flex-1 justify-center overflow-hidden">
+          {/* Navigation list — sized to fill the screen without scrolling or a dead gap */}
+          <div className="flex flex-col px-5 pt-2 overflow-hidden">
             {menuItems.map((item) => {
               const isLevelActive = activeLevel === item.id;
 
@@ -248,22 +248,22 @@ export default function Navbar({
                   <div key={item.id} className="border-b border-slate-100">
                     <button
                       onClick={() => toggleMobileSection(item.id)}
-                      className={`flex items-center justify-between w-full py-2 text-left text-sm font-semibold transition-colors cursor-pointer ${
+                      className={`flex items-center justify-between w-full py-3.5 text-left text-lg font-semibold transition-colors cursor-pointer ${
                         isLevelActive ? 'text-[#0056D2]' : 'text-slate-800 hover:text-[#0056D2]'
                       }`}
                     >
                       <span>{item.label}</span>
-                      <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isExpanded ? 'rotate-180 text-[#0056D2]' : 'text-slate-400'}`} />
+                      <ChevronDown className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-180 text-[#0056D2]' : 'text-slate-400'}`} />
                     </button>
 
                     {/* Mobile Accordion Content */}
                     {isExpanded && (
-                      <div className="pb-2 -mt-0.5 pl-1 animate-in fade-in slide-in-from-top-1 duration-150">
+                      <div className="pb-3 -mt-1 pl-1 space-y-0.5 animate-in fade-in slide-in-from-top-1 duration-150">
                         <button
                           onClick={() => handleMenuItemClick(item.id)}
-                          className="w-full text-left py-1 text-xs font-bold text-[#0056D2] flex items-center gap-1.5 cursor-pointer"
+                          className="w-full text-left py-1.5 text-sm font-bold text-[#0056D2] flex items-center gap-1.5 cursor-pointer"
                         >
-                          <GraduationCap className="h-3 w-3" />
+                          <GraduationCap className="h-3.5 w-3.5" />
                           <span>Tous les cours {item.label}</span>
                         </button>
 
@@ -271,7 +271,7 @@ export default function Navbar({
                           <button
                             key={link.title}
                             onClick={() => handleQuickLinkClick(item.id, link.subject, link.docType)}
-                            className="w-full text-left py-1 text-xs text-slate-600 hover:text-[#0056D2] cursor-pointer"
+                            className="w-full text-left py-1.5 text-sm text-slate-600 hover:text-[#0056D2] cursor-pointer"
                           >
                             {link.title}
                           </button>
@@ -286,7 +286,7 @@ export default function Navbar({
                 <button
                   key={item.id}
                   onClick={() => handleMenuItemClick(item.id)}
-                  className={`w-full py-2 text-left text-sm font-semibold border-b border-slate-100 transition-colors cursor-pointer ${
+                  className={`w-full py-3.5 text-left text-lg font-semibold border-b border-slate-100 transition-colors cursor-pointer ${
                     isLevelActive ? 'text-[#0056D2]' : 'text-slate-800 hover:text-[#0056D2]'
                   }`}
                 >
