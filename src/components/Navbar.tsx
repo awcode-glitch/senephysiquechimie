@@ -208,13 +208,17 @@ export default function Navbar({
         <div className="fixed inset-0 top-20 z-40 bg-slate-900/40 backdrop-blur-sm xl:hidden" onClick={() => setIsMobileMenuOpen(false)} />
       )}
 
-      {/* Mobile Menu Panel */}
+      {/* Mobile Menu Panel — the slide transition lives on this outer element only;
+          the inner element handles scrolling. Combining transform + overflow-y-auto
+          on the same node makes Safari iOS paint the scrollable content incorrectly
+          (items appearing one at a time instead of all at once). */}
       <div
         id="mobile-menu-panel"
-        className={`fixed top-20 right-0 bottom-0 z-50 w-full max-w-sm bg-white border-l border-slate-200 p-6 overflow-y-auto transition-transform duration-300 ease-out xl:hidden ${
+        className={`fixed top-20 right-0 bottom-0 z-50 w-full max-w-sm xl:hidden transition-transform duration-300 ease-out ${
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
+        <div className="h-full overflow-y-auto bg-white border-l border-slate-200 p-6" style={{ WebkitOverflowScrolling: 'touch' }}>
         <div className="flex flex-col space-y-3">
           <div className="pb-3 border-b border-slate-200 flex justify-between items-center">
             <h3 className="text-xs font-bold text-slate-500 tracking-wider uppercase font-mono">Menu de Navigation</h3>
@@ -285,6 +289,7 @@ export default function Navbar({
               </button>
             );
           })}
+        </div>
         </div>
       </div>
     </nav>
