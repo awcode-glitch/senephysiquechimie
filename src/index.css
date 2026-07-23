@@ -7,6 +7,13 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
+/* Prevents accidental horizontal scroll on mobile (e.g. from the off-screen
+   translate-x-full mobile menu panel widening the page's scrollable area). */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 /* Custom modern light scrollbar, Coursera style */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
