@@ -229,7 +229,7 @@ export default function AdminDashboard({ courses, onClose }: AdminDashboardProps
   // If not authenticated, show the Firebase login screen
   if (!isAuthenticated) {
     return (
-      <div className="max-w-md mx-auto my-12 bg-white border border-slate-200 rounded-3xl p-8 shadow-md transition-colors duration-300">
+      <div className="max-w-md mx-auto my-8 sm:my-12 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-md transition-colors duration-300">
         <div className="text-center mb-6">
           <div className="inline-flex p-3 rounded-2xl bg-blue-50 text-[#0056D2] border border-blue-100 mb-4">
             <Lock className="h-8 w-8" />
@@ -287,42 +287,42 @@ export default function AdminDashboard({ courses, onClose }: AdminDashboardProps
     <div className="max-w-6xl mx-auto">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-blue-50 text-[#0056D2] border border-blue-100">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="shrink-0 p-2.5 rounded-xl bg-blue-50 text-[#0056D2] border border-blue-100">
             <ShieldCheck className="h-6 w-6" />
           </div>
-          <div>
+          <div className="min-w-0">
             <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900">Panneau d'Administration</h2>
             <p className="text-xs text-slate-500 font-medium">{courses.length} cours au total sur la plateforme.</p>
           </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <button onClick={handleLogout} className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors cursor-pointer">
-            <LogOut className="h-4 w-4" /> Déconnexion
+            <LogOut className="h-4 w-4 shrink-0" /> Déconnexion
           </button>
           <button onClick={onClose} className="inline-flex items-center gap-2 text-xs font-bold text-[#0056D2] hover:text-blue-800 transition-colors cursor-pointer">
-            <ArrowLeft className="h-4 w-4" /> Retour à l'accueil
+            <ArrowLeft className="h-4 w-4 shrink-0" /> Retour à l'accueil
           </button>
         </div>
       </div>
 
       {/* Add button + one-time demo cleanup */}
-      <div className="flex justify-end items-center gap-3 mb-4">
+      <div className="flex flex-col sm:flex-row sm:justify-end items-stretch sm:items-center gap-3 mb-4">
         {demoCourseIds.length > 0 && (
           <button
             onClick={handleCleanupDemo}
             disabled={isCleaningDemo}
-            className="inline-flex items-center gap-2 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 font-bold text-xs px-4 py-2.5 rounded-xl transition-colors cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 font-bold text-xs px-4 py-2.5 rounded-xl transition-colors cursor-pointer disabled:opacity-50"
           >
-            <Sparkles className="h-4 w-4" />
+            <Sparkles className="h-4 w-4 shrink-0" />
             {isCleaningDemo ? 'Suppression...' : `Nettoyer les ${demoCourseIds.length} cours de démo`}
           </button>
         )}
         <button
           onClick={() => { resetForm(); setShowForm(true); }}
-          className="inline-flex items-center gap-2 bg-[#0056D2] hover:bg-[#00419e] text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition-colors cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 bg-[#0056D2] hover:bg-[#00419e] text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm transition-colors cursor-pointer"
         >
-          <Plus className="h-4 w-4" /> Ajouter un cours
+          <Plus className="h-4 w-4 shrink-0" /> Ajouter un cours
         </button>
       </div>
 
