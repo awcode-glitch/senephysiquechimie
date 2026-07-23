@@ -203,93 +203,95 @@ export default function Navbar({
         </div>
       </div>
 
-      {/* Mobile Drawer Overlay */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-20 z-40 bg-slate-900/40 backdrop-blur-sm xl:hidden" onClick={() => setIsMobileMenuOpen(false)} />
-      )}
-
-      {/* Mobile Menu Panel — the slide transition lives on this outer element only;
-          the inner element handles scrolling. Combining transform + overflow-y-auto
-          on the same node makes Safari iOS paint the scrollable content incorrectly
-          (items appearing one at a time instead of all at once). */}
+      {/* Mobile Menu Panel — full-screen, clean list style.
+          The slide transition lives on this outer element only; the inner
+          element handles scrolling. Combining transform + overflow-y-auto on
+          the same node makes Safari iOS paint the scrollable content
+          incorrectly (items appearing one at a time instead of all at once). */}
       <div
         id="mobile-menu-panel"
-        className={`fixed top-20 right-0 bottom-0 z-50 w-full max-w-sm xl:hidden transition-transform duration-300 ease-out ${
+        className={`fixed inset-0 z-50 xl:hidden transition-transform duration-300 ease-out ${
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="h-full overflow-y-auto bg-white border-l border-slate-200 p-6" style={{ WebkitOverflowScrolling: 'touch' }}>
-        <div className="flex flex-col space-y-3">
-          <div className="pb-3 border-b border-slate-200 flex justify-between items-center">
-            <h3 className="text-xs font-bold text-slate-500 tracking-wider uppercase font-mono">Menu de Navigation</h3>
-            <span className="text-[10px] bg-blue-50 text-[#0056D2] px-2 py-0.5 rounded font-mono border border-blue-100">
-              {menuItems.length} Sections
-            </span>
+        <div className="h-full overflow-y-auto bg-white" style={{ WebkitOverflowScrolling: 'touch' }}>
+          {/* Top bar with brand + close button */}
+          <div className="flex items-center justify-between px-6 h-20 border-b border-slate-100">
+            <div className="flex items-center space-x-2.5 select-none">
+              <div className="p-2 rounded-xl bg-blue-50/60 border border-blue-100/50">
+                <Atom className="h-5 w-5 text-[#0056D2]" />
+              </div>
+              <span className="text-base font-extrabold tracking-tight text-slate-900">
+                SENE<span className="text-[#0056D2] font-black">PHYSIQUE</span>CHIMIE
+              </span>
+            </div>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
+            >
+              <X className="h-6 w-6" />
+            </button>
           </div>
 
-          {menuItems.map((item) => {
-            const isLevelActive = activeLevel === item.id;
+          {/* Big, clean navigation list */}
+          <div className="flex flex-col px-6 py-4">
+            {menuItems.map((item) => {
+              const isLevelActive = activeLevel === item.id;
 
-            if (item.isDropdown) {
-              const isExpanded = expandedMobileSection === item.id;
-              const quickLinks = getQuickLinks(item.label);
-              return (
-                <div key={item.id} className="flex flex-col space-y-1">
-                  <button
-                    onClick={() => toggleMobileSection(item.id)}
-                    className={`flex items-center justify-between w-full px-4 py-3 rounded-xl text-left text-sm font-semibold transition-all ${
-                      isLevelActive
-                        ? 'bg-blue-50 text-[#0056D2] border-l-4 border-[#0056D2] pl-3'
-                        : 'text-slate-700 hover:text-[#0056D2] hover:bg-slate-50'
-                    }`}
-                  >
-                    <span>{item.label}</span>
-                    <ChevronDown className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-180 text-[#0056D2]' : 'text-slate-400'}`} />
-                  </button>
+              if (item.isDropdown) {
+                const isExpanded = expandedMobileSection === item.id;
+                const quickLinks = getQuickLinks(item.label);
+                return (
+                  <div key={item.id} className="border-b border-slate-100">
+                    <button
+                      onClick={() => toggleMobileSection(item.id)}
+                      className={`flex items-center justify-between w-full py-4 text-left text-xl font-semibold transition-colors cursor-pointer ${
+                        isLevelActive ? 'text-[#0056D2]' : 'text-slate-800 hover:text-[#0056D2]'
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown className={`h-5 w-5 transition-transform ${isExpanded ? 'rotate-180 text-[#0056D2]' : 'text-slate-400'}`} />
+                    </button>
 
-                  {/* Mobile Accordion Content */}
-                  {isExpanded && (
-                    <div className="pl-4 pr-2 py-1.5 space-y-1 bg-slate-50 rounded-xl border border-slate-100 animate-in slide-in-from-top-2 duration-200">
-                      <button
-                        onClick={() => handleMenuItemClick(item.id)}
-                        className="w-full text-left px-3 py-2 text-xs font-bold text-[#0056D2] hover:bg-blue-100/50 rounded-lg flex items-center space-x-1"
-                      >
-                        <GraduationCap className="h-3.5 w-3.5" />
-                        <span>Tous les cours {item.label}</span>
-                      </button>
-
-                      <div className="h-px bg-slate-200 my-1" />
-
-                      {quickLinks.map((link) => (
+                    {/* Mobile Accordion Content */}
+                    {isExpanded && (
+                      <div className="pb-4 -mt-1 pl-1 space-y-1 animate-in fade-in slide-in-from-top-1 duration-150">
                         <button
-                          key={link.title}
-                          onClick={() => handleQuickLinkClick(item.id, link.subject, link.docType)}
-                          className="w-full text-left px-3 py-2 text-xs text-slate-600 hover:text-[#0056D2] hover:bg-blue-50 rounded-lg"
+                          onClick={() => handleMenuItemClick(item.id)}
+                          className="w-full text-left py-2 text-sm font-bold text-[#0056D2] flex items-center gap-1.5 cursor-pointer"
                         >
-                          {link.title}
+                          <GraduationCap className="h-3.5 w-3.5" />
+                          <span>Tous les cours {item.label}</span>
                         </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            }
 
-            return (
-              <button
-                key={item.id}
-                onClick={() => handleMenuItemClick(item.id)}
-                className={`w-full px-4 py-3 rounded-xl text-left text-sm font-semibold transition-all ${
-                  isLevelActive
-                    ? 'bg-blue-50 text-[#0056D2] border-l-4 border-[#0056D2] pl-3'
-                    : 'text-slate-700 hover:text-[#0056D2] hover:bg-slate-50'
-                }`}
-              >
-                {item.label}
-              </button>
-            );
-          })}
-        </div>
+                        {quickLinks.map((link) => (
+                          <button
+                            key={link.title}
+                            onClick={() => handleQuickLinkClick(item.id, link.subject, link.docType)}
+                            className="w-full text-left py-2 text-sm text-slate-600 hover:text-[#0056D2] cursor-pointer"
+                          >
+                            {link.title}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleMenuItemClick(item.id)}
+                  className={`w-full py-4 text-left text-xl font-semibold border-b border-slate-100 transition-colors cursor-pointer ${
+                    isLevelActive ? 'text-[#0056D2]' : 'text-slate-800 hover:text-[#0056D2]'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     </nav>
