@@ -346,7 +346,7 @@ export default function AdminDashboard({ courses, onClose }: AdminDashboardProps
             />
           </div>
 
-          <div className={`grid grid-cols-1 gap-4 ${ARCHIVE_LEVELS.includes(form.level) ? 'sm:grid-cols-2' : 'sm:grid-cols-3'}`}>
+          <div className={`grid grid-cols-1 gap-4 ${ARCHIVE_LEVELS.includes(form.level) ? '' : 'sm:grid-cols-3'}`}>
             <div>
               <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 font-mono">Niveau</label>
               <select
@@ -358,26 +358,28 @@ export default function AdminDashboard({ courses, onClose }: AdminDashboardProps
               </select>
             </div>
             {!ARCHIVE_LEVELS.includes(form.level) && (
-              <div>
-                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 font-mono">Matière</label>
-                <select
-                  value={form.subject}
-                  onChange={(e) => setForm({ ...form, subject: e.target.value as Course['subject'] })}
-                  className="w-full border border-slate-300 focus:border-[#0056D2] rounded-xl px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none transition-colors"
-                >
-                  {SUBJECTS.map((s) => <option key={s} value={s}>{s}</option>)}
-                </select>
-              </div>
+              <>
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 font-mono">Matière</label>
+                  <select
+                    value={form.subject}
+                    onChange={(e) => setForm({ ...form, subject: e.target.value as Course['subject'] })}
+                    className="w-full border border-slate-300 focus:border-[#0056D2] rounded-xl px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none transition-colors"
+                  >
+                    {SUBJECTS.map((s) => <option key={s} value={s}>{s}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 font-mono">N° Chapitre (optionnel)</label>
+                  <input
+                    type="number"
+                    value={form.chapterNumber}
+                    onChange={(e) => setForm({ ...form, chapterNumber: e.target.value })}
+                    className="w-full border border-slate-300 focus:border-[#0056D2] rounded-xl px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none transition-colors"
+                  />
+                </div>
+              </>
             )}
-            <div>
-              <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 font-mono">N° Chapitre (optionnel)</label>
-              <input
-                type="number"
-                value={form.chapterNumber}
-                onChange={(e) => setForm({ ...form, chapterNumber: e.target.value })}
-                className="w-full border border-slate-300 focus:border-[#0056D2] rounded-xl px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none transition-colors"
-              />
-            </div>
           </div>
 
           {!ARCHIVE_LEVELS.includes(form.level) && (

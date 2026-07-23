@@ -406,6 +406,7 @@ export default function App() {
           ) : filteredCourses.length > 0 ? (
             ARCHIVE_LEVELS.includes(activeLevel) ? (
               <BacArchive
+                key={activeLevel}
                 courses={filteredCourses}
                 onDownloadClick={(c) => setSelectedCourseForDownload(c)}
               />

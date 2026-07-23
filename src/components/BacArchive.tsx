@@ -6,6 +6,7 @@ import { ChevronDown, CalendarDays, Flag, Eye, Download } from 'lucide-react';
 interface BacArchiveProps {
   courses: Course[];
   onDownloadClick: (course: Course) => void;
+  key?: string;
 }
 
 const SERIES_ORDER = ['S1', 'S2', 'L2'];
