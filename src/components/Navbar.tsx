@@ -214,27 +214,27 @@ export default function Navbar({
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="h-full overflow-y-auto bg-white" style={{ WebkitOverflowScrolling: 'touch' }}>
+        <div className="h-full bg-white flex flex-col">
           {/* Top bar with brand + close button */}
-          <div className="flex items-center justify-between px-6 h-20 border-b border-slate-100">
-            <div className="flex items-center space-x-2.5 select-none">
-              <div className="p-2 rounded-xl bg-blue-50/60 border border-blue-100/50">
-                <Atom className="h-5 w-5 text-[#0056D2]" />
+          <div className="flex items-center justify-between px-5 h-14 border-b border-slate-100 shrink-0">
+            <div className="flex items-center space-x-2 select-none">
+              <div className="p-1.5 rounded-lg bg-blue-50/60 border border-blue-100/50">
+                <Atom className="h-4 w-4 text-[#0056D2]" />
               </div>
-              <span className="text-base font-extrabold tracking-tight text-slate-900">
+              <span className="text-sm font-extrabold tracking-tight text-slate-900">
                 SENE<span className="text-[#0056D2] font-black">PHYSIQUE</span>CHIMIE
               </span>
             </div>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
             >
-              <X className="h-6 w-6" />
+              <X className="h-5 w-5" />
             </button>
           </div>
 
-          {/* Big, clean navigation list */}
-          <div className="flex flex-col px-6 py-4">
+          {/* Compact navigation list — sized to always fit on one screen, no scrolling */}
+          <div className="flex flex-col px-5 flex-1 justify-center overflow-hidden">
             {menuItems.map((item) => {
               const isLevelActive = activeLevel === item.id;
 
@@ -245,22 +245,22 @@ export default function Navbar({
                   <div key={item.id} className="border-b border-slate-100">
                     <button
                       onClick={() => toggleMobileSection(item.id)}
-                      className={`flex items-center justify-between w-full py-4 text-left text-xl font-semibold transition-colors cursor-pointer ${
+                      className={`flex items-center justify-between w-full py-2 text-left text-sm font-semibold transition-colors cursor-pointer ${
                         isLevelActive ? 'text-[#0056D2]' : 'text-slate-800 hover:text-[#0056D2]'
                       }`}
                     >
                       <span>{item.label}</span>
-                      <ChevronDown className={`h-5 w-5 transition-transform ${isExpanded ? 'rotate-180 text-[#0056D2]' : 'text-slate-400'}`} />
+                      <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isExpanded ? 'rotate-180 text-[#0056D2]' : 'text-slate-400'}`} />
                     </button>
 
                     {/* Mobile Accordion Content */}
                     {isExpanded && (
-                      <div className="pb-4 -mt-1 pl-1 space-y-1 animate-in fade-in slide-in-from-top-1 duration-150">
+                      <div className="pb-2 -mt-0.5 pl-1 animate-in fade-in slide-in-from-top-1 duration-150">
                         <button
                           onClick={() => handleMenuItemClick(item.id)}
-                          className="w-full text-left py-2 text-sm font-bold text-[#0056D2] flex items-center gap-1.5 cursor-pointer"
+                          className="w-full text-left py-1 text-xs font-bold text-[#0056D2] flex items-center gap-1.5 cursor-pointer"
                         >
-                          <GraduationCap className="h-3.5 w-3.5" />
+                          <GraduationCap className="h-3 w-3" />
                           <span>Tous les cours {item.label}</span>
                         </button>
 
@@ -268,7 +268,7 @@ export default function Navbar({
                           <button
                             key={link.title}
                             onClick={() => handleQuickLinkClick(item.id, link.subject, link.docType)}
-                            className="w-full text-left py-2 text-sm text-slate-600 hover:text-[#0056D2] cursor-pointer"
+                            className="w-full text-left py-1 text-xs text-slate-600 hover:text-[#0056D2] cursor-pointer"
                           >
                             {link.title}
                           </button>
@@ -283,7 +283,7 @@ export default function Navbar({
                 <button
                   key={item.id}
                   onClick={() => handleMenuItemClick(item.id)}
-                  className={`w-full py-4 text-left text-xl font-semibold border-b border-slate-100 transition-colors cursor-pointer ${
+                  className={`w-full py-2 text-left text-sm font-semibold border-b border-slate-100 transition-colors cursor-pointer ${
                     isLevelActive ? 'text-[#0056D2]' : 'text-slate-800 hover:text-[#0056D2]'
                   }`}
                 >
