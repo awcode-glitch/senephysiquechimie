@@ -125,7 +125,7 @@ export default function Hero({
                 className="w-36 h-36 sm:w-44 sm:h-44 rounded-full object-cover border-4 border-white shadow-md"
               />
               <span className="bg-[#0056D2] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">
-                Enseignant
+                MOUSSA SENE
               </span>
             </div>
 
@@ -133,10 +133,7 @@ export default function Hero({
               <h3 className="text-lg font-bold text-slate-900 text-center md:text-left">
                 Mot de bienvenue de votre enseignant
               </h3>
-              <p className="mt-1 text-sm font-bold text-[#0056D2]">
-                Mousa SENE
-              </p>
-              <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-wide">
+              <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-wide mt-1">
                 Professeur de Sciences Physiques — Lycée Banque Islamique (LBI)
               </p>
               <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed italic">
