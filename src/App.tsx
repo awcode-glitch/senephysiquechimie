@@ -37,6 +37,14 @@ const ARCHIVE_LEVEL_SUBTITLES: Record<string, string> = {
 // Only these levels have a Série S/L split — collège, BAC, Fascicules etc. don't need it
 const SERIES_LEVELS = ['TS', '1S', '2S'];
 
+const getLevelBaseName = (level: string): string => (level === 'TS' ? 'Terminale' : level === '1S' ? 'Première' : 'Seconde');
+const getLevelShortPrefix = (level: string): string => (level === 'TS' ? 'T' : level === '1S' ? '1' : '2');
+
+// Display label for a SERIES_LEVELS level, reflecting the selected Série filter:
+// the full class name when no Série is chosen ("Terminale"), the short code once one is ("TS"/"TL").
+const getSeriesLevelLabel = (level: string, series: 'All' | 'S' | 'L'): string =>
+  series === 'All' ? getLevelBaseName(level) : `${getLevelShortPrefix(level)}${series}`;
+
 export default function App() {
   const [activeLevel, setActiveLevel] = useState<string>(() =>
     window.location.pathname === '/admin' ? 'Admin' : 'Accueil'
@@ -211,10 +219,8 @@ export default function App() {
     if (activeLevel === 'CGS') return 'Concours Général Sénégalais (CGS)';
     if (activeLevel === 'Fascicules') return 'Fascicules d\'exercices & Recueils';
     if (SERIES_LEVELS.includes(activeLevel)) {
-      const baseName = activeLevel === 'TS' ? 'Terminale' : activeLevel === '1S' ? 'Première' : 'Seconde';
-      const shortPrefix = activeLevel === 'TS' ? 'T' : activeLevel === '1S' ? '1' : '2';
-      if (selectedSeries === 'All') return `Classe de ${baseName}`;
-      return `Classe de ${baseName} ${selectedSeries} (${shortPrefix}${selectedSeries})`;
+      if (selectedSeries === 'All') return `Classe de ${getLevelBaseName(activeLevel)}`;
+      return `Classe de ${getLevelBaseName(activeLevel)} ${selectedSeries} (${getSeriesLevelLabel(activeLevel, selectedSeries)})`;
     }
     return `Espace de cours ${activeLevel}`;
   }, [activeLevel, selectedSeries, searchQuery]);
@@ -346,7 +352,7 @@ export default function App() {
               <span>Filtres actifs :</span>
               {activeLevel !== 'Search' && (
                 <span className="bg-white text-[#0056D2] px-2.5 py-1 rounded-lg border border-slate-200 font-semibold font-mono shadow-sm">
-                  Niveau: {activeLevel === '3eme' ? '3ème' : activeLevel === '4eme' ? '4ème' : SERIES_LEVELS.includes(activeLevel) && selectedSeries === 'L' ? `${activeLevel.replace('S', '')}L` : activeLevel}
+                  Niveau: {activeLevel === '3eme' ? '3ème' : activeLevel === '4eme' ? '4ème' : SERIES_LEVELS.includes(activeLevel) ? getSeriesLevelLabel(activeLevel, selectedSeries) : activeLevel}
                 </span>
               )}
               {selectedSubject !== 'All' && (
@@ -402,8 +408,7 @@ export default function App() {
               <div className="flex items-center gap-2 px-5 sm:px-6 py-4 border-b border-slate-100 bg-slate-50/60">
                 <BookOpen className="h-4 w-4 text-[#0056D2]" />
                 <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider font-mono">
-                  Programme {activeLevel === '3eme' ? '3ème' : activeLevel === '4eme' ? '4ème' : activeLevel}
-                  {SERIES_LEVELS.includes(activeLevel) && selectedSeries !== 'All' ? ` (Série ${selectedSeries})` : ''}
+                  Programme {activeLevel === '3eme' ? '3ème' : activeLevel === '4eme' ? '4ème' : SERIES_LEVELS.includes(activeLevel) ? getSeriesLevelLabel(activeLevel, selectedSeries) : activeLevel}
                 </h3>
                 <span className="ml-auto text-[10px] font-mono font-bold text-[#0056D2] bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
                   {levelCourses.length} chapitre{levelCourses.length > 1 ? 's' : ''}
