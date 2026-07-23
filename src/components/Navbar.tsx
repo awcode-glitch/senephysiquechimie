@@ -13,9 +13,9 @@ interface NavbarProps {
 }
 
 const LEVELS: { id: string; label: string; isDropdown: boolean }[] = [
-  { id: 'TS', label: 'TS', isDropdown: true },
-  { id: '1S', label: '1S', isDropdown: true },
-  { id: '2S', label: '2S', isDropdown: true },
+  { id: 'TS', label: 'Terminale', isDropdown: true },
+  { id: '1S', label: 'Première', isDropdown: true },
+  { id: '2S', label: 'Seconde', isDropdown: true },
   { id: '3eme', label: '3ème', isDropdown: true },
   { id: '4eme', label: '4ème', isDropdown: true },
   { id: 'Fascicules', label: 'Fascicules', isDropdown: false },
