@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Search, Sparkles, ChevronRight } from 'lucide-react';
+import { Search, Sparkles, ChevronRight, Phone } from 'lucide-react';
 import HeroSlideshow from './HeroSlideshow';
 import teacherPhoto from '../assets/teacher/mr-sene.png';
+import { WHATSAPP_DISPLAY, WHATSAPP_DISPLAY_2 } from '../utils/whatsapp';
 
 interface HeroProps {
   searchQuery: string;
@@ -136,6 +137,16 @@ export default function Hero({
               <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-wide mt-1">
                 Professeur de Sciences Physiques — Lycée Banque Islamique (LBI)
               </p>
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-1 mt-2 text-xs font-semibold text-[#0056D2]">
+                <span className="flex items-center gap-1.5">
+                  <Phone className="h-3.5 w-3.5" />
+                  {WHATSAPP_DISPLAY}
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Phone className="h-3.5 w-3.5" />
+                  {WHATSAPP_DISPLAY_2}
+                </span>
+              </div>
               <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed italic">
                 "Bonjour ! Bienvenue sur la plateforme SENEPHYSIQUECHIMIE. Cette plateforme a pour but d'échanger et de partager des cours et des exercices de sciences physiques. Notre objectif : rendre les sciences physiques accessibles chez les élèves."
               </p>
